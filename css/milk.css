@@ -1,0 +1,10 @@
+.milk-image {
+    width: 100px;
+    height: auto;
+    margin: 10px;
+    border: 2px solid #000;  
+    border-radius: 10px;      
+    /* display: inline; */
+    
+    object-fit: contain;  /* Ensure images don't get distorted */
+}
