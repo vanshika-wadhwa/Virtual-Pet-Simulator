@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food</title>
+    <link rel="stylesheet" href="/css/milk.css">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    
+    <div class="m-4 p-4">
+        <p class="text-3xl bg-red-900">Food </p>
+        <form action="" method="post">
+            <div class="storage flex flex-wrap h-50% w-50 overflow-hidden">
+                Please enter the amount o food between 1 and 10: <input id="foodInput" class="bg-black text-white" type="text" placeholder="enter the amount...">
+                <!-- button type "submit" krne se db m jata data na ki display hota => type"button" -->
+                <button id="foodButton" class="bg-blue-500 m-2 p-2" type="button" onclick="myFunction()">Submit</button>
+                <div id="milkImage" class="flex inline-flex "></div>
+            </div>
+        </form>
+        <div id="hungryDog" class="h-50% fixed bottom-0 right-0 m-8">
+            <img src="/images/openMouth.png" alt="openMouth">
+        </div>
+    </div>
     <script src="/script/food.js"></script>
 </body>
 </html>
