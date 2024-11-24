@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play</title>
+    <style>
+      
+    .hidden {
+      display: none;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+    }
+    .playButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <div id="navigationFile"></div>
+    <div id="playContainer">
+        <div id="image-container">
+            <button id="playButton" class="playbutton" type="button" onclick="playGame()">let's play</button>
+            <img src="/images/dogStick.png" alt="dogstick" id="img1" class="image">
+            <img src="/images/digging.png" alt="digging" id="img2" class="image">
+            <img src="/images/dogOut.png" alt="dogOut" id="img3" class="image">
+        </div>     
+    </div>
+    <!-- <script src="/script/play.js"></script> -->
+    <script>
+        const images = document.querySelectorAll(".image");
+        const playButton = document.getElementById("playButton");
+      
+        let currentIndex = 0;
+      
+        playButton.addEventListener("click", () => {
+            // Reset all images to be hidden
+            images.forEach(image => {
+                image.style.display = "none";
+            });
+      
+            currentIndex = 0;
+            const interval = setInterval(() => {
+                if (currentIndex > 0) {
+                    images[currentIndex - 1].style.display = "none";
+                }
+      
+                if (currentIndex < images.length) {
+                    images[currentIndex].style.display = "block";
+                    currentIndex++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        });
+        
+        fetch('navigation.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('navigationFile').innerHTML = data;
+          })
+          .catch(error => console.error('Error loading the HTML file:', error));
+      
+      </script>
+      
+</body>
+</html>

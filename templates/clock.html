@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Sequence with Clock</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .image-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .image {
+            position: absolute;
+            width: 150px; /* Set image size */
+            height: auto;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease-in-out;
+        }
+        .image.active {
+            opacity: 1; /* Visible when active */
+        }
+        .clock {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <div class="clock" id="clock">00:00</div>
+        <img src="/images/sleepyDog.png" alt="Sleepy Dog" class="image" id="img1" style="top: 10%; left: 10%;">
+        <img src="/images/dogGoingSleep.png" alt="Going Sleep" class="image" id="img2" style="top: 30%; left: 30%;">
+        <img src="/images/running.png" alt="Running Dog" class="image" id="img3" style="top: 50%; left: 50%;">
+        <img src="/images/dog.png" alt="Happy Dog" class="image" id="img4" style="top: 70%; left: 70%;">
+    </div>
+    <script >
+        // Get all image elements and the clock element
+const images = document.querySelectorAll('.image');
+const clockElement = document.getElementById('clock');
+
+let currentIndex = images.length - 1; // Start from the last image
+let stopSequence = false; // Flag to stop the sequence
+let timeElapsed = 0; // Time counter in seconds
+
+// Function to format time as MM:SS
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Function to update the clock display
+function updateClock() {
+    timeElapsed += 1; // Increment time
+    clockElement.textContent = formatTime(timeElapsed);
+}
+
+// Function to switch to dark theme
+function switchToDarkTheme() {
+    document.body.style.backgroundColor = "black"; // Dark background
+    document.body.style.color = "#ecf0f1"; // Light text color
+
+    // Update clock styles
+    clockElement.style.backgroundColor = "#34495e"; // Darker background for clock
+    clockElement.style.color = "#ecf0f1"; // Clock text color
+}
+
+// Function to change the active image
+function showNextImage() {
+    if (stopSequence) {
+        images.forEach((img) => img.classList.remove('active'));
+        images[currentIndex].classList.add('active'); // Keep only the current image active
+        return;
+    }
+
+    // Remove 'active' class from all images
+    images.forEach((img) => img.classList.remove('active'));
+    
+    // Add 'active' class to the current image
+    images[currentIndex].classList.add('active');
+    
+    // Check if the current image is the sleepyDog.png
+    if (images[currentIndex].alt === "Sleepy Dog") {
+        stopSequence = true; // Stop the sequence
+        switchToDarkTheme(); // Change the theme to dark
+    } else {
+        // Update index to the previous image
+        currentIndex = (currentIndex - 1 + images.length) % images.length; // Loops back to the end
+    }
+}
+
+// Start the clock and image sequence
+setInterval(updateClock, 1000); // Update clock every second
+setInterval(showNextImage, 1000); // Show next image every 5 seconds
+
+// Start with the last image visible
+showNextImage();
+
+    </script>
+
+</body>
+</html>

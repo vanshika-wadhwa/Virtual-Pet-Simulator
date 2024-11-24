@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Sequence</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .image-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .image {
+            position: absolute;
+            width: 150px; /* Set image size */
+            height: auto;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+            transform: translateY(100%); /* Initially off-screen */
+        }
+        .image.active {
+            opacity: 1; /* Visible when active */
+            transform: translateY(0); /* Move into view */
+        }
+    </style>
+</head>
+    <div id="navigationFile"></div>
+    <div class="image-container">
+        <img src="/images/sleepyDog.png" alt="Sleepy Dog" class="image" id="img1" style="bottom: 70%; right: 70%;">
+        <img src="/images/dogGoingSleep.png" alt="Dog Going Sleep" class="image" id="img2" style="bottom: 50%; right: 50%;">
+        <img src="/images/running.png" alt="Running Dog" class="image" id="img3" style="bottom: 30%; right: 30%;">
+        <img src="/images/dog.png" alt="Happy Dog" class="image" id="img4" style="bottom: 10%; right: 10%;">
+    </div>
+    
+    <script>
+        fetch('navigation.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navigationFile').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading the HTML file:', error));
+    </script>
+    <script src="/script/sleep.js"></script>
+</body>
+</html>

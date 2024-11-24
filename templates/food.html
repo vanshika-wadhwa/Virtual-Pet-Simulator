@@ -9,10 +9,11 @@
 </head>
 <body>
     <div class="m-4 p-4">
-        <p class="text-3xl bg-red-900">Food </p>
+        <div id="navigationFile"></div>
+        <p class="text-3xl bg-red-900">I'm hungry</p>
         <form action="" method="post">
             <div class="storage flex flex-wrap h-50% w-50 overflow-hidden">
-                Please enter the amount o food between 1 and 10: <input id="foodInput" class="bg-black text-white" type="text" placeholder="enter the amount...">
+                Please enter the amount of food between 1 and 10: <input id="foodInput" class="bg-black text-white" type="text" placeholder="enter the amount...">
                 <!-- button type "submit" krne se db m jata data na ki display hota => type"button" -->
                 <button id="foodButton" class="bg-blue-500 m-2 p-2" type="button" onclick="myFunction()">Submit</button>
                 <div id="milkImage" class="flex inline-flex "></div>
@@ -21,7 +22,16 @@
         <div id="hungryDog" class="h-50% fixed bottom-0 right-0 m-8">
             <img src="/images/openMouth.png" alt="openMouth">
         </div>
+         
     </div>
+    <script>
+        fetch('navigation.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('navigationFile').innerHTML = data;
+          })
+          .catch(error => console.error('Error loading the HTML file:', error));
+      </script>
     <script src="/script/food.js"></script>
 </body>
 </html>
